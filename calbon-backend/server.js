@@ -58,6 +58,7 @@ app.post('/login', async (req, res) => {
         }
 
         res.status(200).json({ sucesso:true, message: 'Login bem-sucedido', usuario });
+        
     } catch (err) {
         console.error('Erro ao executar a consulta:', err);
         res.status(500).json({ sucesso:false,message: 'Erro no servidor' });
