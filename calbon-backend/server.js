@@ -5,14 +5,14 @@ const app = express();
 const { Pool } = require('pg');
 
 const pool = new Pool({
-  user: 'avnadmin',
-  host: 'pg-intersegundo-intercalbon.h.aivencloud.com',
-  database: 'defaultdb',
-  password: 'AVNS_qLlBJlSOUuZPtWwd0fi',
-  port: 17807,
-  ssl: {
+    user: process.env.user,
+    host: process.env.host,
+    database: process.env.database,
+    password: process.env.password,
+    port: 17807,
+    ssl: {
     rejectUnauthorized: false,
-  },
+    },
 });
 
 app.use(cors());
@@ -58,7 +58,7 @@ app.post('/login', async (req, res) => {
         }
 
         res.status(200).json({ sucesso:true, message: 'Login bem-sucedido', usuario });
-        
+
     } catch (err) {
         console.error('Erro ao executar a consulta:', err);
         res.status(500).json({ sucesso:false,message: 'Erro no servidor' });
