@@ -1,0 +1,52 @@
+    /* src/styles/Localizacoes.css */
+    .localizacoes-container {
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    }
+
+    .localizacoes-container h2 {
+    font-size: 22px;
+    margin-bottom: 16px;
+    }
+
+    .localizacoes-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    background: #18181d;
+    border-radius: 8px;
+    overflow: hidden;
+    }
+
+    .localizacoes-table th,
+    .localizacoes-table td {
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 14px;
+    }
+
+    .localizacoes-table th {
+    background: #23232a;
+    color: #f2f2f2;
+    border-bottom: 2px solid #2f2f36;
+    }
+
+    .localizacoes-table td {
+    color: #d9d9d9;
+    border-bottom: 1px solid #202024;
+    }
+
+    .localizacoes-table tbody tr:nth-child(even) {
+    background: #202024;
+    }
+
+    .localizacoes-table tbody tr:hover {
+    background-color: #2a2a31;
+    transition: 0.2s;
+    }
+
+    .erro-msg {
+    color: #ff4d4d;
+    margin-top: 10px;
+    }
