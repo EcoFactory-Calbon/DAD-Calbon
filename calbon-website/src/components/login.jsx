@@ -37,7 +37,7 @@ function Login() {
   return (
     <div className="login">
       <div className="login-card">
-        <h1 className="titulo">Faça Login</h1>
+        <h1 className="titulo-login">Faça Login</h1>
 
         <form className="login-form" onSubmit={logar}>
           <div className="input-group">

@@ -10,7 +10,7 @@ function Escolha() {
       <h1>Bem-vindo(a)!</h1>
       <p>Escolha para onde deseja ir:</p>
       <div className="botoes-escolha">
-        <button onClick={() => navigate("/home")}>Home</button>
+        <button onClick={() => navigate("/visualizar")}>Gerenciamento</button>
         <button onClick={() => navigate("/dashboard")}>Dashboard</button>
       </div>
     </div>
