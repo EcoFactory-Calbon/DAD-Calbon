@@ -4,12 +4,11 @@ import FuncionarioService from "../services/funcionarioService";
 import InserirFuncionario from "./InserirFuncionario";
 import "../styles/visualizar.css";
 
-import iconeHome from "../img/icone-home.png";
-import iconeTabela from "../img/icone-tabela.png";
-import iconeAdicionar from "../img/icone-adicionar.png";
-import iconeSair from "../img/icone-sair.png";
-import iconeLupa from "../img/icone-lupa.png";
-import iconeLogo from "../img/icone-logo.png";
+import iconeTabela from "../assets/img/icone-tabela.png";
+import iconeLocalizacao from "../assets/img/icone-localizacao.png";
+import iconeAdicionar from "../assets/img/icone-adicionar.png";
+import iconeLupa from "../assets/img/icone-lupa.png";
+import iconeLogo from "../assets/img/logo-escrita.png";
 
 function VisualizarFuncionarios() {
   const [funcionarios, setFuncionarios] = useState([]);
@@ -79,41 +78,37 @@ function VisualizarFuncionarios() {
   return (
     <div className="pagina-visualizar">
       <header>
-  <img src={iconeLogo} alt="Logo da empresa" className="logo-header" />
+        <button onClick={() => navigate("/escolha")} className="logo-btn">
+          <img src={iconeLogo} alt="Logo da empresa" className="logo-img" />
+        </button>
       </header>
 
       <aside className="sidebar">
         <ul>
-          <li className="sidebar-item" onClick={() => navigate("/home")}>
-            <img src={iconeHome} alt="Home" className="icon-img" />
-            <span className="label">Home</span>
+          <li className="sidebar-item" onClick={() => navigate("/visualizar")}>
+            <img src={iconeTabela} alt="Gerenciamento" className="icon-img" />
+            <span className="label">Gerenciamento</span>
           </li>
           <li className="sidebar-item" onClick={() => navigate("/localizacao")}>
-            <img src={iconeTabela} alt="Localizações" className="icon-img" />
+            <img src={iconeLocalizacao} alt="Localizações" className="icon-img" />
             <span className="label">Localizações</span>
           </li>
-          <li className="sidebar-item" onClick={() => setMostrarPopup(true)}>
-            <img src={iconeAdicionar} alt="Inserir" className="icon-img" />
-            <span className="label">Inserir</span>
-          </li>
         </ul>
-        <button id="back-btn" onClick={() => navigate("/escolha")}>
-          <img src={iconeSair} alt="Voltar" className="icon-img" />
-          <span className="label">Voltar</span>
-        </button>
       </aside>
 
+
       <main>
-        <div className="title-container">
-          <div className="title-row">
-            <img src={iconeTabela} alt="Ícone Tabela" className="title-icon" />
-            <span className="separator">|</span>
-            <h1 className="titulo">Visualizar Registros</h1>
-          </div>
-          <p className="subtitulo">
-            Aqui você pode visualizar, editar ou excluir todos os registros de funcionários da sua empresa:
-          </p>
+      <div className="title-container">
+        <div className="title-row">
+          <img src={iconeTabela} alt="Ícone Tabela" className="title-icon" />
+          <span className="separator">|</span>
+          <h1 className="titulo">Visualizar Registros</h1>
         </div>
+        <p className="subtitulo">
+          Aqui você pode visualizar, editar ou excluir todos os registros de funcionários da sua empresa:
+        </p>
+      </div>
+
 
         <div className="barra-superior">
           <label htmlFor="busca" className="input-pesquisa">

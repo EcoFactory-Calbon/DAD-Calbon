@@ -1,30 +1,3 @@
-/* Configurações básicas e fontes */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-/* Fundo da Página (Estilo do body) */
-body {
-    /* Degradê Radial no Fundo */
-    background-color: black;
-    background-image: radial-gradient(
-        circle at 50% 120%,
-        #0a5b78a9 0%,
-        rgba(10, 4, 26, 0.9) 70%,
-        #0A041A 100%
-    );
-
-    font-family: 'Inter', sans-serif;
-    color: var(--color-text-light); /* Não definido, mas mantido. Ajuste se necessário. */
-    min-height: 100vh;
-    display: flex;
-    justify-content: center; /* Centraliza horizontalmente o conteúdo da tela de login */
-    align-items: center; /* Centraliza verticalmente o conteúdo da tela de login */
-    padding: 20px;
-}
-
 a {
     text-decoration: none;
     color: inherit;
@@ -54,7 +27,7 @@ a {
     z-index: 10;
 }
 
-.titulo {
+.titulo-login {
     font-size: 26px;
     font-weight: 600;
     color: #f0f0f2; /* Cor clara para o título */

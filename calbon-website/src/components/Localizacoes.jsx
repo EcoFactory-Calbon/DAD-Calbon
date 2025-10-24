@@ -4,11 +4,16 @@ import { useNavigate } from "react-router-dom";
 import LocalizacaoService from "../services/localizacaoService";
 import "../styles/localizacao.css";
 
+import iconeHome from "../assets/img/icone-home.png";
+import iconeLocalizacao from "../assets/img/icone-localizacao.png";
+import iconeSair from "../assets/img/icone-sair.png";
+import iconeLogo from "../assets/img/logo-escrita.png";
+
 function Localizacoes() {
   const [localizacoes, setLocalizacoes] = useState([]);
-  const [erro, setErro] = useState("");
-  const popupRef = useRef(null);
+  const [mostrarPopup, setMostrarPopup] = useState(false);
   const navigate = useNavigate();
+  const popupRef = useRef(null);
 
   // Carrega as localizações da API
   useEffect(() => {
@@ -18,55 +23,84 @@ function Localizacoes() {
         setLocalizacoes(response.data);
       } catch (err) {
         console.error("Erro ao buscar localizações:", err);
-        setErro("Não foi possível carregar as localizações.");
       }
     };
-
     fetchLocalizacoes();
   }, []);
 
-  // Fecha popup ao clicar fora
-  useEffect(() => {
-    const handleClickFora = (event) => {
-      if (popupRef.current && !popupRef.current.contains(event.target)) {
-        navigate("/home"); // volta para home ao fechar
-      }
-    };
-    document.addEventListener("mousedown", handleClickFora);
-    return () => document.removeEventListener("mousedown", handleClickFora);
-  }, [navigate]);
-
   return (
     <div className="pagina-localizacoes">
-      <div className="popup" ref={popupRef}>
-        <span className="fechar" onClick={() => navigate("/home")}>×</span>
-        <h2>Localizações</h2>
+      <header>
+        <button onClick={() => navigate("/escolha")} class="logo-btn">
+          <img src={iconeLogo} alt="Logo da empresa" className="logo-img" />
+        </button>
+      </header>
 
-        {erro && <p className="erro-msg">{erro}</p>}
+      <aside className="sidebar">
+        <ul>
+          <li className="sidebar-item" onClick={() => navigate("/visualizar")}>
+            <img src={iconeHome} alt="Home" className="icon-img" />
+            <span className="label">Home</span>
+          </li>
+          <li className="sidebar-item" onClick={() => navigate("/localizacao")}>
+            <img src={iconeLocalizacao} alt="Localizações" className="icon-img" />
+            <span className="label">Localizações</span>
+          </li>
+        </ul>
 
-        {localizacoes.length > 0 ? (
-          <table className="localizacoes-table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Estado</th>
-                <th>Cidade</th>
-              </tr>
-            </thead>
-            <tbody>
-              {localizacoes.map((loc) => (
-                <tr key={loc.id}>
-                  <td>{loc.id}</td>
-                  <td>{loc.estado}</td>
-                  <td>{loc.cidade}</td>
+        <button id="back-btn" onClick={() => navigate("/escolha")}>
+          <img src={iconeSair} alt="Voltar" className="icon-img" />
+          <span className="label">Voltar</span>
+        </button>
+      </aside>
+
+
+      <main>
+        <div className="title-container-localizacao">
+          <div className="title-row">
+            <img src={iconeLocalizacao} alt="Ícone Localização" className="title-icon" />
+            <span className="separator">|</span>
+            <h1 className="titulo">Localizações</h1>
+          </div>
+          <p className="subtitulo">
+            Aqui você pode visualizar a tabela de localizações da empresa, mostrando o ID, Estado e Cidade de cada registro, informações que serão necessárias para cadastrar ou referenciar outros dados.
+          </p>
+        </div>
+
+        <div className="tabela-container">
+          {localizacoes.length > 0 ? (
+            <table className="tabela-localizacoes">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Estado</th>
+                  <th>Cidade</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <p>Nenhuma localização encontrada.</p>
-        )}
-      </div>
+              </thead>
+              <tbody>
+                {localizacoes.map((loc) => (
+                  <tr key={loc.id}>
+                    <td>{loc.id}</td>
+                    <td>{loc.estado}</td>
+                    <td>{loc.cidade}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p style={{ textAlign: "center", marginTop: "20px" }}>Nenhuma localização encontrada.</p>
+          )}
+        </div>
+      </main>
+
+      {/* Aqui você pode adicionar pop-up para inserir localização se quiser */}
+      {mostrarPopup && (
+        <div className="popup">
+          {/* Conteúdo do pop-up */}
+          <span className="fechar" onClick={() => setMostrarPopup(false)}>×</span>
+          <h2>Inserir Localização</h2>
+        </div>
+      )}
     </div>
   );
 }
