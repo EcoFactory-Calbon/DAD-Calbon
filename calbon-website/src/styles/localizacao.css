@@ -68,8 +68,30 @@ header {
   
   .sidebar-item:hover {
     background: rgba(0, 78, 87, 0.5);
-  }
-  
+    }
+
+    .sidebar-item.ativo {
+    background: rgba(0, 172, 191, 0.35);
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.25);
+    }
+    #back-btn {
+    margin-left: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
+    padding: 12px;
+    transition: opacity 0.2s;
+    }
+
+    #back-btn:hover {
+    opacity: 0.8;
+    }
+    
   .icon-img {
     width: 20px;
     height: 20px;
@@ -203,4 +225,39 @@ header {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  
+  /* =================== PESQUISA =================== */
+.input-pesquisa {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 280px;
+  margin-top: 12px;
+}
+
+.input-pesquisa .icone-lupa {
+  position: absolute;
+  left: 10px;
+  width: 18px;
+  height: 18px;
+  opacity: 0.8;
+}
+
+.input-pesquisa input {
+  width: 100%;
+  padding: 10px 12px 10px 36px; /* espaço p/ ícone */
+  border-radius: 6px;
+  border: 1px solid #2e2e36;
+  background: #23232a;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.input-pesquisa input:focus {
+  border-color: #0cacbf;
+}
+
+.input-pesquisa input::placeholder {
+  color: #9a9a9a;
+}

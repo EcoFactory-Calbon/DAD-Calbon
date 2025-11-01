@@ -12,6 +12,7 @@ function Escolha() {
       <div className="botoes-escolha">
         <button onClick={() => navigate("/visualizar")}>Gerenciamento</button>
         <button onClick={() => navigate("/dashboard")}>Dashboard</button>
+        <button onClick={() => navigate("/chatbot")}>Chat Bot</button>
       </div>
     </div>
   );
