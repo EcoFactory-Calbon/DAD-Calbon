@@ -137,3 +137,29 @@
         margin-right: 0;
     }
     }
+.popup-alert {
+  padding: 10px 15px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 10px;
+  animation: fadeInOut 3s ease forwards;
+}
+
+/* Sucesso e erro */
+.popup-alert.sucesso {
+  background-color: #4caf50;
+  color: white;
+}
+
+.popup-alert.erro {
+  background-color: #ff4d4f;
+  color: white;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-10px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-10px); }
+}

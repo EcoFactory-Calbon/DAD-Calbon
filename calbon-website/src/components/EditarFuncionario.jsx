@@ -1,5 +1,6 @@
     import React, { useState, useEffect } from "react";
-    import "../styles/editar.css"; // se tiver um CSS específico
+    import "../styles/editar.css";
+    import FuncionarioService from "../services/funcionarioService";
 
     function EditarFuncionario({ funcionarioSelecionado, onSalvar, onFechar }) {
     const [form, setForm] = useState({
@@ -7,55 +8,131 @@
         nome: "",
         sobrenome: "",
         email: "",
-        cargo: "",
-        cidade: "",
-        estado: "",
         is_gestor: false,
     });
 
-    // Carrega os dados do funcionário quando o componente abre
+    const [dadosOriginais, setDadosOriginais] = useState({});
+    const [popupMsg, setPopupMsg] = useState("");
+    const [popupTipo, setPopupTipo] = useState("erro");
+
+    // 🔹 Exibe pop-up temporário
+    const showPopup = (mensagem, tipo = "erro") => {
+        setPopupMsg(mensagem);
+        setPopupTipo(tipo);
+        setTimeout(() => setPopupMsg(""), 3000);
+    };
+
+    // 🔹 Carrega dados do funcionário
     useEffect(() => {
         if (funcionarioSelecionado) {
-        const [cidade, estado] = funcionarioSelecionado.localizacao
-            ? funcionarioSelecionado.localizacao.split(" - ")
-            : ["", ""];
-
-        setForm({
+        const dados = {
             numeroCracha: funcionarioSelecionado.numeroCracha || "",
             nome: funcionarioSelecionado.nome || "",
             sobrenome: funcionarioSelecionado.sobrenome || "",
             email: funcionarioSelecionado.email || "",
-            cargo: funcionarioSelecionado.cargo || "",
-            cidade,
-            estado,
-            is_gestor: funcionarioSelecionado.is_gestor || false,
-        });
+            is_gestor: !!funcionarioSelecionado.is_gestor,
+        };
+        console.log("🟢 useEffect - Dados carregados no formulário:", dados);
+        setForm(dados);
+        setDadosOriginais(dados);
         }
     }, [funcionarioSelecionado]);
 
+    // 🔹 Atualiza campos do formulário
     function handleChange(e) {
         const { name, value } = e.target;
+        const novoValor = name === "is_gestor" ? value === "sim" : value;
+
+        console.log(`✏️ Campo alterado: ${name} →`, novoValor);
+
         setForm((prev) => ({
         ...prev,
-        [name]: name === "is_gestor" ? value === "sim" : value,
+        [name]: novoValor,
         }));
     }
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        // Chama a função passada por props para salvar as alterações
-        onSalvar({
-        ...form,
-        localizacao: `${form.cidade} - ${form.estado.toUpperCase()}`,
+    // 🔹 Detecta campos alterados
+    function getCamposAlterados() {
+        const alterados = {};
+        Object.keys(form).forEach((campo) => {
+        if (campo === "numeroCracha") return;
+        const valorAtual = form[campo];
+        const valorOriginal = dadosOriginais[campo];
+
+        if (valorAtual !== valorOriginal) {
+            alterados[campo] = valorAtual;
+        }
         });
+
+        console.log("🔍 Campos alterados detectados:", alterados);
+        return alterados;
     }
 
-    if (!funcionarioSelecionado) return null; // não mostra nada se ninguém estiver sendo editado
+    // 🔹 Envia PATCH
+    async function handleSubmit(e) {
+        e.preventDefault();
+
+        console.log("📋 Estado atual do form antes de enviar:", form);
+
+        const camposAlterados = getCamposAlterados();
+        if (Object.keys(camposAlterados).length === 0) {
+        showPopup("Nenhuma alteração foi feita.");
+        return;
+        }
+
+        const payload = camposAlterados;
+        console.log("🚀 Enviando PATCH:", {
+        numeroCracha: form.numeroCracha,
+        body: payload,
+        });
+
+        try {
+        const response = await FuncionarioService.atualizarPorSite(
+            form.numeroCracha,
+            payload
+        );
+
+        console.log("✅ Resposta da API:", response.data);
+
+        const valorIsGestor = response.data.is_gestor ?? "(não veio)";
+        console.log("🧠 Valor retornado de is_gestor:", valorIsGestor);
+
+        const funcionarioAtualizado = {
+            ...form,
+            ...response.data,
+            is_gestor:
+            valorIsGestor === "(não veio)" ? form.is_gestor : valorIsGestor,
+        };
+
+        console.log("🧩 Funcionário final após merge de resposta:", funcionarioAtualizado);
+
+        showPopup("Funcionário atualizado com sucesso! ✅", "sucesso");
+
+        setTimeout(() => {
+            onSalvar(funcionarioAtualizado);
+            onFechar();
+        }, 1500);
+        } catch (err) {
+        console.error("❌ Erro ao atualizar funcionário:", err);
+        if (err.response) {
+            console.error("📨 Erro resposta do servidor:", err.response.data);
+            console.error("📨 Código:", err.response.status);
+        }
+        showPopup("Erro ao atualizar funcionário. Verifique os dados e tente novamente.");
+        }
+    }
+
+    if (!funcionarioSelecionado) return null;
 
     return (
         <div className="popup-editar">
         <div className="popup-conteudo">
             <h2>Editar Funcionário</h2>
+
+            {popupMsg && (
+            <div className={`popup-alert ${popupTipo}`}>{popupMsg}</div>
+            )}
+
             <form onSubmit={handleSubmit} className="form-editar">
             <label>
                 Nº Crachá
@@ -74,7 +151,7 @@
                 name="nome"
                 value={form.nome}
                 onChange={handleChange}
-                required
+                placeholder="Nome"
                 />
             </label>
 
@@ -85,7 +162,7 @@
                 name="sobrenome"
                 value={form.sobrenome}
                 onChange={handleChange}
-                required
+                placeholder="Sobrenome"
                 />
             </label>
 
@@ -96,64 +173,14 @@
                 name="email"
                 value={form.email}
                 onChange={handleChange}
-                required
+                placeholder="E-mail"
                 />
             </label>
-
-            <label>
-                Cargo
-                <input
-                type="text"
-                name="cargo"
-                value={form.cargo}
-                onChange={handleChange}
-                required
-                />
-            </label>
-
-            <label>
-                Cidade
-                <input
-                type="text"
-                name="cidade"
-                value={form.cidade}
-                onChange={handleChange}
-                required
-                />
-            </label>
-
-            <label>
-                Estado
-                <input
-                type="text"
-                name="estado"
-                value={form.estado}
-                onChange={handleChange}
-                required
-                />
-            </label>
-
-            <label>
-                É Gestor?
-                <select
-                name="is_gestor"
-                value={form.is_gestor ? "sim" : "não"}
-                onChange={handleChange}
-                >
-                <option value="sim">Sim</option>
-                <option value="não">Não</option>
-                </select>
-            </label>
-
             <div className="botoes-editar">
                 <button type="submit" className="btn-salvar">
                 Salvar
                 </button>
-                <button
-                type="button"
-                className="btn-cancelar"
-                onClick={onFechar}
-                >
+                <button type="button" className="btn-cancelar" onClick={onFechar}>
                 Cancelar
                 </button>
             </div>

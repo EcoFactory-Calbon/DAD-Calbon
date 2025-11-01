@@ -1,0 +1,229 @@
+    /* =================== Cargo.css =================== */
+
+    /* =================== HEADER =================== */
+    header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    padding: 5px;
+    background: #18181D;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 10;
+    border-bottom: 3px solid #2B2B36;
+    }
+
+    header .logo-img {
+    width: auto;
+    height: 30px;
+    object-fit: contain;
+    margin-left: 15px;
+    }
+
+    .logo-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    }
+
+    /* =================== SIDEBAR =================== */
+    .sidebar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    height: calc(100vh - 60px);
+    width: 70px;
+    padding: 20px 0 24px 0;
+    background: #18181D;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 3px solid #2B2B36;
+    }
+
+    .sidebar ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-left: 8px;
+    padding-right: 8px;
+    }
+
+    .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.2s, box-shadow 0.3s;
+    position: relative;
+    }
+
+    .sidebar-item:hover {
+    background: rgba(0, 78, 87, 0.5);
+    }
+
+    .sidebar-item.ativo {
+    background: rgba(0, 172, 191, 0.35);
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.25);
+    }
+
+    .icon-img {
+    width: 20px;
+    height: 20px;
+    }
+
+    .label {
+    opacity: 0;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+    }
+
+    .sidebar.expanded .label {
+    opacity: 1;
+    }
+
+    #back-btn {
+    margin-left: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
+    padding: 12px;
+    transition: opacity 0.2s;
+    }
+
+    #back-btn:hover {
+    opacity: 0.8;
+    }
+
+    /* =================== MAIN =================== */
+    main {
+    flex: 1;
+    margin-left: 80px;
+    padding: 84px 32px 32px;
+    transition: margin-left 0.3s;
+    }
+
+    /* =================== TITULO =================== */
+    .title-container-cargo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 10px 10px 30px 10px;
+    }
+
+    .title-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    }
+
+    .title-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    }
+
+    .separator {
+    color: #F2F2F2;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 1;
+    padding-bottom: 2px;
+    }
+
+    .titulo {
+    font-size: 2rem;
+    color: #F2F2F2;
+    font-weight: 600;
+    }
+
+    .subtitulo {
+    font-size: 1.3rem;
+    color: #9A9A9A;
+    margin-top: 4px;
+    }
+
+    /* =================== PESQUISA =================== */
+    .input-pesquisa {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 280px;
+    margin-top: 12px;
+    }
+
+    .input-pesquisa .icone-lupa {
+    position: absolute;
+    left: 10px;
+    width: 18px;
+    height: 18px;
+    opacity: 0.8;
+    }
+
+    .input-pesquisa input {
+    width: 100%;
+    padding: 10px 12px 10px 36px;
+    border-radius: 6px;
+    border: 1px solid #2e2e36;
+    background: #23232a;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
+    }
+
+    .input-pesquisa input:focus {
+    border-color: #0cacbf;
+    }
+
+    .input-pesquisa input::placeholder {
+    color: #9a9a9a;
+    }
+
+    /* =================== TABELA =================== */
+    .tabela-container {
+    overflow-x: auto;
+    margin-top: 25px;
+    }
+
+    .tabela-cargo {
+    width: 100%;
+    border-collapse: collapse;
+    background: #18181d;
+    border-radius: 8px;
+    overflow: hidden;
+    }
+
+    .tabela-cargo th,
+    .tabela-cargo td {
+    padding: 12px;
+    text-align: left;
+    color: #fff;
+    }
+
+    .tabela-cargo th {
+    background: #23232a;
+    font-weight: 600;
+    }
+
+    .tabela-cargo tbody tr:nth-child(even) {    
+    background: #202024;
+    }
+
+    .tabela-cargo tbody tr:hover {
+    background: rgba(0, 172, 191, 0.2);
+    transition: background 0.2s;
+    }

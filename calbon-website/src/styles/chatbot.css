@@ -1,0 +1,175 @@
+/* ===== Configurações gerais ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.chat-body {
+  background: radial-gradient(circle at 50% 120%, #0a5b78a9 0%, #0A041A 100%);
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #fff;
+}
+
+/* ===== Estrutura principal ===== */
+.chat-container {
+  width: 1000px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.chat-card {
+  background-color: #1b1b2e;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  width: 100%;
+  max-width: 900px; /* Mais largo para desktop */
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ===== Cabeçalho ===== */
+.chat-titulo {
+  background: linear-gradient(90deg, #0da5cf, #1479e5);
+  color: white;
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  padding: 20px;
+  letter-spacing: 0.5px;
+}
+
+/* ===== Área de mensagens ===== */
+.chat-mensagens {
+  flex: 1;
+  padding: 25px 40px;
+  overflow-y: auto;
+  background-color: #121227;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  scroll-behavior: smooth;
+}
+
+/* Scrollbar personalizada */
+.chat-mensagens::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-mensagens::-webkit-scrollbar-thumb {
+  background-color: #2b2b45;
+  border-radius: 4px;
+}
+
+/* ===== Bolhas de mensagem ===== */
+.mensagem {
+  padding: 12px 18px;
+  border-radius: 18px;
+  max-width: 65%;
+  font-size: 16px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  animation: aparecer 0.2s ease-in-out;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mensagem.bot {
+  align-self: flex-start;
+  background-color: #2d4a63;
+  color: #e1e8ed;
+  border-top-left-radius: 4px;
+}
+
+.mensagem.usuario {
+  align-self: flex-end;
+  background: linear-gradient(90deg, #0da5cf, #1479e5);
+  color: white;
+  border-top-right-radius: 4px;
+}
+
+/* ===== Área de entrada ===== */
+.chat-input {
+  display: flex;
+  align-items: center;
+  padding: 15px 25px;
+  background-color: #0f0f25;
+  border-top: 1px solid #272657;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 14px 18px;
+  border: none;
+  border-radius: 50px;
+  background-color: #272657;
+  color: #fff;
+  font-size: 15px;
+}
+
+.chat-input input::placeholder {
+  color: #a3a3b5;
+}
+
+.chat-input input:focus {
+  outline: none;
+  background-color: #2f2f6d;
+}
+
+/* ===== Botão de envio ===== */
+.btn-enviar {
+  background: linear-gradient(90deg, #0da5cf, #1479e5);
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  margin-left: 12px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-enviar:hover {
+  transform: scale(1.08);
+  opacity: 0.9;
+}
+
+/* ===== Responsividade ===== */
+@media (max-width: 768px) {
+  .chat-card {
+    max-width: 95%;
+    height: 85vh;
+  }
+
+  .chat-mensagens {
+    padding: 20px;
+  }
+
+  .mensagem {
+    max-width: 80%;
+    font-size: 15px;
+  }
+}

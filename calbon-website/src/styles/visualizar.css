@@ -86,14 +86,32 @@ header .logo-img {
   height: 20px;
 }
 
-.sidebar-item:hover {
-  background: rgba(0, 78, 87, 0.5);
-}
+  .sidebar-item:hover {
+    background: rgba(0, 78, 87, 0.5);
+    }
 
-.sidebar-item.active {
-  background: none;
-  border: none;
-}
+    .sidebar-item.ativo {
+    background: rgba(0, 172, 191, 0.35);
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.25);
+    }
+
+    #back-btn {
+    margin-left: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
+    padding: 12px;
+    transition: opacity 0.2s;
+    }
+
+    #back-btn:hover {
+    opacity: 0.8;
+    }
 
 .label {
   opacity: 0;
@@ -273,6 +291,19 @@ main {
 .tabela-container {
   overflow-x: auto;
 }
+ .tabela-container th {
+    background: #23232a;
+    font-weight: 600;
+    }
+
+    .tabela-container tbody tr:nth-child(even) {    
+    background: #202024;
+    }
+
+    .tabela-container tbody tr:hover {
+    background: rgba(0, 172, 191, 0.2);
+    transition: background 0.2s;
+    }
 
 table {
   width: 100%;
@@ -380,4 +411,61 @@ tbody tr:nth-child(even) {
 @keyframes aparecer {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+.menu-acoes {
+  position: relative;
+  right: 0;
+  top: 35px;
+  background: #23232a;
+  border: 1px solid #2b2b36;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  min-width: 160px;
+  z-index: 20;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  animation: fadeMenu 0.15s ease-out;
+}
+
+@keyframes fadeMenu {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.menu-acoes button {
+  background: none;
+  border: none;
+  color: #f1f1f1;
+  padding: 12px 14px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.menu-acoes button:hover {
+  background: rgba(12, 172, 191, 0.2);
+  color: #0cacbf;
+}
+
+.menu-acoes button + button {
+  border-top: 1px solid #2b2b36;
+}
+
+.tres-pontinhos {
+  cursor: pointer;
+  font-size: 20px;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.tres-pontinhos:hover {
+  background: rgba(12, 172, 191, 0.15);
 }
